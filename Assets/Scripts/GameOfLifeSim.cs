@@ -9,13 +9,15 @@ namespace GameOfLife.Simulation
         private Cell[,] cells;
         private int[,] neighbors;
         private long lastUpdateTime = DateTime.Now.Ticks;
+        public int Length = 100;
+        public int Width = 100;
 
         void Awake()
         {
-            cells = new Cell[300, 300];
-            for (int i = 0; i < cells.Length; i++)
+            cells = new Cell[Length, Width];
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                for (int j = 0; j < cells.Length; j++)
+                for (int j = 0; j < cells.GetLength(0); j++)
                 {
                     cells[i, j] = new Cell();
                 }
@@ -24,35 +26,35 @@ namespace GameOfLife.Simulation
 
         void Update()
         {
-            long currentTime = DateTime.Now.Ticks;
-            if ((currentTime - lastUpdateTime) > 1000)
-            {
-                lastUpdateTime = currentTime;
+            //long currentTime = DateTime.Now.Ticks;
+            //if ((currentTime - lastUpdateTime) > 1000)
+            //{
+            //    lastUpdateTime = currentTime;
 
-                neighbors = new int[300, 300];
-                for (int i = 0; i < cells.Length; i++)
-                {
-                    for (int j = 0; j < cells.Length; j++)
-                    {
-                        neighbors[i, j] = getNumNeighbors(i, j);
-                    }
-                }
+            //    neighbors = new int[300, 300];
+            //    for (int i = 0; i < cells.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < cells.GetLength(0); j++)
+            //        {
+            //            neighbors[i, j] = getNumNeighbors(i, j);
+            //        }
+            //    }
 
-                for (int i = 0; i < cells.Length; i++)
-                {
-                    for (int j = 0; j < cells.Length; j++)
-                    {
-                        if (neighbors[i, j] < 2 || neighbors[i, j] > 3)
-                        {
-                            cells[i, j].die();
-                        }
-                        else if ((neighbors[i, j] == 2 && cells[i, j].getState() == 1) || (neighbors[i, j] == 3))
-                        {
-                            cells[i, j].live();
-                        }
-                    }
-                }
-            }
+            //    for (int i = 0; i < cells.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < cells.GetLength(0); j++)
+            //        {
+            //            if (neighbors[i, j] < 2 || neighbors[i, j] > 3)
+            //            {
+            //                cells[i, j].die();
+            //            }
+            //            else if ((neighbors[i, j] == 2 && cells[i, j].getState() == 1) || (neighbors[i, j] == 3))
+            //            {
+            //                cells[i, j].live();
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         public void updateNeighborsOf(int i, int j)
