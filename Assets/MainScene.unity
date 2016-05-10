@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692576, g: 0.49678743, b: 0.5750851, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692492, g: 0.4967869, b: 0.57508546, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -307,7 +307,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1386795101}
   - 114: {fileID: 1386795103}
-  - 114: {fileID: 1386795102}
   m_Layer: 0
   m_Name: TileBoard
   m_TagString: Untagged
@@ -328,17 +327,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1386795102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1386795100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dc92d8bb4c60304bae8e966a273464b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1386795103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,5 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6604db1cdb7c944b721da2981f6dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Length: 10
-  Width: 10
+  AliveColor: {r: 0.24137926, g: 0, b: 1, a: 0}
+  HoverColor: {r: 0.7205882, g: 0.7046929, b: 0.7046929, a: 0}
+  Length: 1000
+  Width: 1000
