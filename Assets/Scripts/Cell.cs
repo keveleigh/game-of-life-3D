@@ -49,15 +49,23 @@ public class Cell : MonoBehaviour
         return isAlive;
     }
 
-    //void OnGazeEnter()
-    //{
-    //    cellRenderer.enabled = true;
-    //}
+    void OnGazeEnter()
+    {
+        cellRenderer.enabled = true;
+        cellRenderer.material.color = hoverColor;
+    }
 
-    //void OnGazeLeave()
-    //{
-    //    cellRenderer.enabled = false;
-    //}
+    void OnGazeLeave()
+    {
+        if (isAlive)
+        {
+            cellRenderer.material.color = aliveColor;
+        }
+        else
+        {
+            cellRenderer.enabled = false;
+        }
+    }
 
     void OnMouseEnter()
     {
@@ -75,5 +83,10 @@ public class Cell : MonoBehaviour
         {
             cellRenderer.enabled = false;
         }
+    }
+
+    void OnSelect()
+    {
+        ChangeState();
     }
 }
