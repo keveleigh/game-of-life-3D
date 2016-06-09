@@ -3,7 +3,6 @@
 public class Cell : MonoBehaviour
 {
     private bool isAlive;
-    private bool isHover;
     private Renderer cellRenderer;
 
     private Color aliveColor;

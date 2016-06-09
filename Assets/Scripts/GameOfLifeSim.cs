@@ -10,6 +10,7 @@ namespace GameOfLife.Simulation
         public Color HoverColor;
         public int Length = 100;
         public int Width = 100;
+        public GameObject Cell;
 
         private bool isRunning = false;
         private Cell[,] cells;
@@ -25,7 +26,7 @@ namespace GameOfLife.Simulation
                 {
                     if(i == 0)
                     {
-                        GameObject borderCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        GameObject borderCube = Instantiate(Cell);
                         borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i - 1 - (cells.GetLength(0) / 2)) / 10.0f, (j - (cells.GetLength(0) / 2)) / 10.0f, 0);
@@ -33,7 +34,7 @@ namespace GameOfLife.Simulation
                     }
                     if (i == cells.GetLength(0) - 1)
                     {
-                        GameObject borderCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        GameObject borderCube = Instantiate(Cell);
                         borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i + 1 - (cells.GetLength(0) / 2)) / 10.0f, (j - (cells.GetLength(0) / 2)) / 10.0f, 0);
@@ -41,7 +42,7 @@ namespace GameOfLife.Simulation
                     }
                     if (j == 0)
                     {
-                        GameObject borderCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        GameObject borderCube = Instantiate(Cell);
                         borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i - (cells.GetLength(0) / 2)) / 10.0f, (j - 1 - (cells.GetLength(0) / 2)) / 10.0f, 0);
@@ -49,14 +50,14 @@ namespace GameOfLife.Simulation
                     }
                     if (j == cells.GetLength(0) - 1)
                     {
-                        GameObject borderCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        GameObject borderCube = Instantiate(Cell);
                         borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i - (cells.GetLength(0) / 2)) / 10.0f, (j + 1 - (cells.GetLength(0) / 2)) / 10.0f, 0);
                         borderCube.transform.localPosition = newBorderPosition;
                     }
 
-                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    GameObject cube = Instantiate(Cell);
                     cube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                     cube.transform.SetParent(transform);
                     Vector3 newPosition = new Vector3((i - (cells.GetLength(0) / 2)) / 10.0f, (j - (cells.GetLength(0) / 2)) / 10.0f, 0);

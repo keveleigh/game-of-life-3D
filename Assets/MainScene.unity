@@ -390,3 +390,4 @@ MonoBehaviour:
   HoverColor: {r: 0.7205882, g: 0.7046929, b: 0.7046929, a: 0}
   Length: 20
   Width: 20
+  Cell: {fileID: 1000010049247024, guid: ef4575bda6cff75478ff3069164d39e4, type: 2}

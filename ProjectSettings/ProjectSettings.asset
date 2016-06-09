@@ -121,6 +121,8 @@ PlayerSettings:
     m_Bits: 238
   iPhoneSdkVersion: 988
   iPhoneTargetOSVersion: 22
+  tvOSSdkVersion: 0
+  tvOSTargetOSVersion: 900
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
   uIRequiresFullScreen: 1
@@ -347,7 +349,7 @@ PlayerSettings:
   metroCertificateNotAfter: 00574de357c9d201
   metroApplicationDescription: GameOfLife
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: GameOfLife
   metroCommandLineArgsFile: 
   metroTileShowName: 0
   metroMediumTileShowName: 0
@@ -478,6 +480,7 @@ PlayerSettings:
   - Build_ServiceEnabled::Build_ServiceEnabled
   - Collab_ServiceEnabled::Collab_ServiceEnabled
   - ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled
+  - Game_Performance_ServiceEnabled::Game_Performance_ServiceEnabled
   - Hub_ServiceEnabled::Hub_ServiceEnabled
   - Purchasing_ServiceEnabled::Purchasing_ServiceEnabled
   - UNet_ServiceEnabled::UNet_ServiceEnabled
@@ -486,6 +489,7 @@ PlayerSettings:
   Build_ServiceEnabled::Build_ServiceEnabled: False
   Collab_ServiceEnabled::Collab_ServiceEnabled: False
   ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled: False
+  Game_Performance_ServiceEnabled::Game_Performance_ServiceEnabled: False
   Hub_ServiceEnabled::Hub_ServiceEnabled: False
   Purchasing_ServiceEnabled::Purchasing_ServiceEnabled: False
   UNet_ServiceEnabled::UNet_ServiceEnabled: False
