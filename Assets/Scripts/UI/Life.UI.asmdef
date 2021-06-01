@@ -1,0 +1,16 @@
+{
+    "name": "Life.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0ec95d9c41cc85d4eb8a20311da79f05"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

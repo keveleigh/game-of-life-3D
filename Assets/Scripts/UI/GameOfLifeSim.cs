@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections;
+using Life.Logic;
+using System;
 using UnityEngine;
 
-namespace GameOfLife.Simulation
+namespace Life.UI
 {
     public class GameOfLifeSim : MonoBehaviour
     {
