@@ -24,7 +24,7 @@ namespace Life.UI
             {
                 for (int j = 0; j < cells.GetLength(0); j++)
                 {
-                    if(i == 0)
+                    if (i == 0)
                     {
                         GameObject borderCube = Instantiate(Cell);
                         borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -83,7 +83,7 @@ namespace Life.UI
                     {
                         for (int j = 0; j < cells.GetLength(0); j++)
                         {
-                            neighbors[i, j] = getNumNeighbors(i, j);
+                            neighbors[i, j] = GetNumNeighbors(i, j);
                         }
                     }
 
@@ -95,7 +95,7 @@ namespace Life.UI
                             {
                                 cells[i, j].Die();
                             }
-                            else if ((neighbors[i, j] == 2 && cells[i, j].IsAlive()) || (neighbors[i, j] == 3))
+                            else if ((neighbors[i, j] == 2 && cells[i, j].IsAlive) || (neighbors[i, j] == 3))
                             {
                                 cells[i, j].Live();
                             }
@@ -105,8 +105,7 @@ namespace Life.UI
             }
             else if (Input.GetMouseButtonDown(0))
             {
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
                 {
                     hit.transform.gameObject.GetComponent<Cell>().ChangeState();
                 }
@@ -123,24 +122,24 @@ namespace Life.UI
             isRunning = toStart;
         }
 
-        public void updateNeighborsOf(int i, int j)
+        public void UpdateNeighborsOf(int i, int j)
         {
-            neighbors[i + 1, j + 1] = getNumNeighbors(i + 1, j + 1);
-            neighbors[i + 1, j] = getNumNeighbors(i + 1, j);
-            neighbors[i + 1, j - 1] = getNumNeighbors(i + 1, j - 1);
-            neighbors[i, j + 1] = getNumNeighbors(i, j + 1);
-            neighbors[i, j - 1] = getNumNeighbors(i, j - 1);
-            neighbors[i - 1, j + 1] = getNumNeighbors(i - 1, j + 1);
-            neighbors[i - 1, j] = getNumNeighbors(i - 1, j);
-            neighbors[i - 1, j - 1] = getNumNeighbors(i - 1, j - 1);
+            neighbors[i + 1, j + 1] = GetNumNeighbors(i + 1, j + 1);
+            neighbors[i + 1, j] = GetNumNeighbors(i + 1, j);
+            neighbors[i + 1, j - 1] = GetNumNeighbors(i + 1, j - 1);
+            neighbors[i, j + 1] = GetNumNeighbors(i, j + 1);
+            neighbors[i, j - 1] = GetNumNeighbors(i, j - 1);
+            neighbors[i - 1, j + 1] = GetNumNeighbors(i - 1, j + 1);
+            neighbors[i - 1, j] = GetNumNeighbors(i - 1, j);
+            neighbors[i - 1, j - 1] = GetNumNeighbors(i - 1, j - 1);
         }
 
-        public int getNumNeighbors(int i, int j)
+        public int GetNumNeighbors(int i, int j)
         {
             int neighbors = 0;
             try
             {
-                if (cells[i + 1, j + 1].IsAlive())
+                if (cells[i + 1, j + 1].IsAlive)
                 {
                     neighbors++;
                 }
@@ -150,7 +149,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i + 1, j].IsAlive())
+                if (cells[i + 1, j].IsAlive)
                 {
                     neighbors++;
                 }
@@ -160,7 +159,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i + 1, j - 1].IsAlive())
+                if (cells[i + 1, j - 1].IsAlive)
                 {
                     neighbors++;
                 }
@@ -170,7 +169,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i, j + 1].IsAlive())
+                if (cells[i, j + 1].IsAlive)
                 {
                     neighbors++;
                 }
@@ -180,7 +179,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i, j - 1].IsAlive())
+                if (cells[i, j - 1].IsAlive)
                 {
                     neighbors++;
                 }
@@ -190,7 +189,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i - 1, j + 1].IsAlive())
+                if (cells[i - 1, j + 1].IsAlive)
                 {
                     neighbors++;
                 }
@@ -200,7 +199,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i - 1, j].IsAlive())
+                if (cells[i - 1, j].IsAlive)
                 {
                     neighbors++;
                 }
@@ -210,7 +209,7 @@ namespace Life.UI
             }
             try
             {
-                if (cells[i - 1, j - 1].IsAlive())
+                if (cells[i - 1, j - 1].IsAlive)
                 {
                     neighbors++;
                 }
@@ -221,9 +220,6 @@ namespace Life.UI
             return neighbors;
         }
 
-        public Cell[,] GetCells()
-        {
-            return cells;
-        }
+        public Cell[,] GetCells => cells;
     }
 }

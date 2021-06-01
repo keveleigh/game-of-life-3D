@@ -1,91 +1,94 @@
 ﻿using UnityEngine;
 
-public class Cell : MonoBehaviour
+namespace Life.UI
 {
-    private bool isAlive;
-    private Renderer cellRenderer;
-
-    private Color aliveColor;
-    private Color hoverColor;
-
-    void Awake()
+    public class Cell : MonoBehaviour
     {
-        cellRenderer = GetComponent<Renderer>();
-        Die();
-    }
+        private Renderer cellRenderer;
 
-    public void SetColors(Color AliveColor, Color HoverColor)
-    {
-        aliveColor = AliveColor;
-        hoverColor = HoverColor;
-    }
+        private Color aliveColor;
+        private Color hoverColor;
 
-    public void ChangeState()
-    {
-        if (isAlive)
+        private Logic.Cell cell = new Logic.Cell();
+
+        void Awake()
         {
+            cellRenderer = GetComponent<Renderer>();
             Die();
         }
-        else
+
+        public void SetColors(Color AliveColor, Color HoverColor)
         {
-            Live();
+            aliveColor = AliveColor;
+            hoverColor = HoverColor;
         }
-    }
 
-    public void Die()
-    {
-        cellRenderer.enabled = isAlive = false;
-    }
-
-    public void Live()
-    {
-        cellRenderer.enabled = isAlive = true;
-        cellRenderer.material.color = aliveColor;
-    }
-
-    public bool IsAlive()
-    {
-        return isAlive;
-    }
-
-    void OnGazeEnter()
-    {
-        cellRenderer.enabled = true;
-        cellRenderer.material.color = hoverColor;
-    }
-
-    void OnGazeLeave()
-    {
-        if (isAlive)
+        public void ChangeState()
         {
-            cellRenderer.material.color = aliveColor;
+            if (cell.IsAlive)
+            {
+                Die();
+            }
+            else
+            {
+                Live();
+            }
         }
-        else
+
+        public void Die()
         {
+            cell.Die();
             cellRenderer.enabled = false;
         }
-    }
 
-    void OnMouseEnter()
-    {
-        cellRenderer.enabled = true;
-        cellRenderer.material.color = hoverColor;
-    }
-
-    void OnMouseExit()
-    {
-        if (isAlive)
+        public void Live()
         {
+            cell.Live();
+            cellRenderer.enabled = true;
             cellRenderer.material.color = aliveColor;
         }
-        else
-        {
-            cellRenderer.enabled = false;
-        }
-    }
 
-    void OnSelect()
-    {
-        ChangeState();
+        public bool IsAlive => cell.IsAlive;
+
+        void OnGazeEnter()
+        {
+            cellRenderer.enabled = true;
+            cellRenderer.material.color = hoverColor;
+        }
+
+        void OnGazeLeave()
+        {
+            if (cell.IsAlive)
+            {
+                cellRenderer.material.color = aliveColor;
+            }
+            else
+            {
+                cellRenderer.enabled = false;
+            }
+        }
+
+        void OnMouseEnter()
+        {
+            cellRenderer.enabled = true;
+            cellRenderer.material.color = hoverColor;
+        }
+
+        void OnMouseExit()
+        {
+            if (cell.IsAlive)
+            {
+                cellRenderer.material.color = aliveColor;
+            }
+            else
+            {
+                cellRenderer.enabled = false;
+            }
+        }
+
+        void OnSelect()
+        {
+            ChangeState();
+        }
     }
 }
