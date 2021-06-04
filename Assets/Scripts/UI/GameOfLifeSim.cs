@@ -27,7 +27,6 @@ namespace Life.UI
                     if (i == 0)
                     {
                         GameObject borderCube = Instantiate(Cell);
-                        borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i - 1 - (Length / 2)) / 10.0f, (j - (Width / 2)) / 10.0f, 0);
                         borderCube.transform.localPosition = newBorderPosition;
@@ -35,7 +34,6 @@ namespace Life.UI
                     if (i == Length - 1)
                     {
                         GameObject borderCube = Instantiate(Cell);
-                        borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i + 1 - (Length / 2)) / 10.0f, (j - (Width / 2)) / 10.0f, 0);
                         borderCube.transform.localPosition = newBorderPosition;
@@ -43,7 +41,6 @@ namespace Life.UI
                     if (j == 0)
                     {
                         GameObject borderCube = Instantiate(Cell);
-                        borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i - (Length / 2)) / 10.0f, (j - 1 - (Width / 2)) / 10.0f, 0);
                         borderCube.transform.localPosition = newBorderPosition;
@@ -51,14 +48,12 @@ namespace Life.UI
                     if (j == Width - 1)
                     {
                         GameObject borderCube = Instantiate(Cell);
-                        borderCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         borderCube.transform.SetParent(transform);
                         Vector3 newBorderPosition = new Vector3((i - (Length / 2)) / 10.0f, (j + 1 - (Width / 2)) / 10.0f, 0);
                         borderCube.transform.localPosition = newBorderPosition;
                     }
 
                     GameObject cube = Instantiate(Cell);
-                    cube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                     cube.transform.SetParent(transform);
                     Vector3 newPosition = new Vector3((i - (Length / 2)) / 10.0f, (j - (Width / 2)) / 10.0f, 0);
                     cube.transform.localPosition = newPosition;
