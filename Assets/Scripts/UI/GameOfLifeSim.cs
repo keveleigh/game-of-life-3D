@@ -28,6 +28,11 @@ namespace Life.UI
 
         private void Awake()
         {
+            float halfLength = length / 2.0f;
+            float halfWidth = width / 2.0f;
+            float cellLength = cell.transform.localScale.x;
+            float cellWidth = cell.transform.localScale.y;
+
             cells = new Cell[length, width];
             for (int i = 0; i < length; i++)
             {
@@ -35,37 +40,27 @@ namespace Life.UI
                 {
                     if (i == 0)
                     {
-                        GameObject borderCube = Instantiate(cell);
-                        borderCube.transform.SetParent(transform);
-                        Vector3 newBorderPosition = new Vector3((i - 1 - (length / 2)) / 10.0f, (j - (width / 2)) / 10.0f, 0);
-                        borderCube.transform.localPosition = newBorderPosition;
+                        GameObject borderCube = Instantiate(cell, transform);
+                        borderCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
                     }
                     if (i == length - 1)
                     {
-                        GameObject borderCube = Instantiate(cell);
-                        borderCube.transform.SetParent(transform);
-                        Vector3 newBorderPosition = new Vector3((i + 1 - (length / 2)) / 10.0f, (j - (width / 2)) / 10.0f, 0);
-                        borderCube.transform.localPosition = newBorderPosition;
+                        GameObject borderCube = Instantiate(cell, transform);
+                        borderCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
                     }
                     if (j == 0)
                     {
-                        GameObject borderCube = Instantiate(cell);
-                        borderCube.transform.SetParent(transform);
-                        Vector3 newBorderPosition = new Vector3((i - (length / 2)) / 10.0f, (j - 1 - (width / 2)) / 10.0f, 0);
-                        borderCube.transform.localPosition = newBorderPosition;
+                        GameObject borderCube = Instantiate(cell, transform);
+                        borderCube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
                     }
                     if (j == width - 1)
                     {
-                        GameObject borderCube = Instantiate(cell);
-                        borderCube.transform.SetParent(transform);
-                        Vector3 newBorderPosition = new Vector3((i - (length / 2)) / 10.0f, (j + 1 - (width / 2)) / 10.0f, 0);
-                        borderCube.transform.localPosition = newBorderPosition;
+                        GameObject borderCube = Instantiate(cell, transform);
+                        borderCube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
                     }
 
-                    GameObject cube = Instantiate(cell);
-                    cube.transform.SetParent(transform);
-                    Vector3 newPosition = new Vector3((i - (length / 2)) / 10.0f, (j - (width / 2)) / 10.0f, 0);
-                    cube.transform.localPosition = newPosition;
+                    GameObject cube = Instantiate(cell, transform);
+                    cube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
                     Cell cellComponent = cube.AddComponent<Cell>();
                     cellComponent.SetColors(aliveColor, hoverColor);
                     cells[i, j] = cellComponent;
