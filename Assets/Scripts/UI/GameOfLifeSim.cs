@@ -47,18 +47,41 @@ namespace Life.UI
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
+
+                        if (j == 0)
+                        {
+                            GameObject borderCornerCube = Instantiate(cell, transform);
+                            borderCornerCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
+                        }
+                        else if (j == width - 1)
+                        {
+                            GameObject borderCornerCube = Instantiate(cell, transform);
+                            borderCornerCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
+                        }
                     }
-                    if (i == length - 1)
+                    else if (i == length - 1)
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
+
+                        if (j == 0)
+                        {
+                            GameObject borderCornerCube = Instantiate(cell, transform);
+                            borderCornerCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
+                        }
+                        else if (j == width - 1)
+                        {
+                            GameObject borderCornerCube = Instantiate(cell, transform);
+                            borderCornerCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
+                        }
                     }
+
                     if (j == 0)
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
                     }
-                    if (j == width - 1)
+                    else if (j == width - 1)
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
