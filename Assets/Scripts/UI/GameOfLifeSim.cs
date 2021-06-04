@@ -26,6 +26,8 @@ namespace Life.UI
         private int[,] neighbors;
         private long lastUpdateTime = DateTime.Now.Ticks;
 
+        private const long UpdateInterval = 5000000;
+
         private void Awake()
         {
             float halfLength = length / 2.0f;
@@ -34,6 +36,8 @@ namespace Life.UI
             float cellWidth = cell.transform.localScale.y;
 
             cells = new Cell[length, width];
+            neighbors = new int[length, width];
+
             for (int i = 0; i < length; i++)
             {
                 for (int j = 0; j < width; j++)
@@ -73,11 +77,10 @@ namespace Life.UI
             if (isRunning)
             {
                 long currentTime = DateTime.Now.Ticks;
-                if ((currentTime - lastUpdateTime) > 5000000)
+                if ((currentTime - lastUpdateTime) > UpdateInterval)
                 {
                     lastUpdateTime = currentTime;
 
-                    neighbors = new int[300, 300];
                     for (int i = 0; i < length; i++)
                     {
                         for (int j = 0; j < width; j++)
@@ -90,13 +93,15 @@ namespace Life.UI
                     {
                         for (int j = 0; j < width; j++)
                         {
-                            if (neighbors[i, j] < 2 || neighbors[i, j] > 3)
+                            int neighborCount = neighbors[i, j];
+                            Cell cell = cells[i, j];
+                            if (neighborCount < 2 || neighborCount > 3)
                             {
-                                cells[i, j].Die();
+                                cell.Die();
                             }
-                            else if ((neighbors[i, j] == 2 && cells[i, j].IsAlive) || (neighbors[i, j] == 3))
+                            else if ((neighborCount == 2 && cell.IsAlive) || neighborCount == 3)
                             {
-                                cells[i, j].Live();
+                                cell.Live();
                             }
                         }
                     }
@@ -119,18 +124,6 @@ namespace Life.UI
         public void SetRunning(bool toStart)
         {
             isRunning = toStart;
-        }
-
-        private void UpdateNeighborsOf(int i, int j)
-        {
-            neighbors[i + 1, j + 1] = GetNumNeighbors(i + 1, j + 1);
-            neighbors[i + 1, j] = GetNumNeighbors(i + 1, j);
-            neighbors[i + 1, j - 1] = GetNumNeighbors(i + 1, j - 1);
-            neighbors[i, j + 1] = GetNumNeighbors(i, j + 1);
-            neighbors[i, j - 1] = GetNumNeighbors(i, j - 1);
-            neighbors[i - 1, j + 1] = GetNumNeighbors(i - 1, j + 1);
-            neighbors[i - 1, j] = GetNumNeighbors(i - 1, j);
-            neighbors[i - 1, j - 1] = GetNumNeighbors(i - 1, j - 1);
         }
 
         private int GetNumNeighbors(int i, int j)
@@ -190,7 +183,5 @@ namespace Life.UI
 
             return neighbors;
         }
-
-        public Cell[,] GetCells => cells;
     }
 }
