@@ -6,16 +6,24 @@ namespace Life.UI
     {
         private Renderer cellRenderer;
 
+        private bool isHovered = false;
         private Color aliveColor;
         private Color hoverColor;
 
-        private Logic.Cell cell = new Logic.Cell();
+        private readonly Logic.Cell cell = new Logic.Cell();
 
-        void Awake()
+        public static implicit operator Logic.Cell(Cell c) => c.cell;
+
+        private void Awake()
         {
             cellRenderer = GetComponent<Renderer>();
             Die();
         }
+
+        /// <summary>
+        /// Syncs the state with the underlying simulation.
+        /// </summary>
+        private void Update() => SetAlive(cell.IsAlive);
 
         public void SetColors(Color AliveColor, Color HoverColor)
         {
@@ -23,41 +31,60 @@ namespace Life.UI
             hoverColor = HoverColor;
         }
 
-        public void ChangeState()
+        private void ChangeState() => SetAlive(!cell.IsAlive);
+
+        private void SetAlive(bool alive)
         {
-            if (cell.IsAlive)
-            {
-                Die();
-            }
-            else
+            if (alive)
             {
                 Live();
             }
+            else
+            {
+                Die();
+            }
         }
 
-        public void Die()
+        private void Die()
         {
             cell.Die();
-            cellRenderer.enabled = false;
+
+            if (!isHovered)
+            {
+                cellRenderer.enabled = false;
+            }
         }
 
-        public void Live()
+        private void Live()
         {
             cell.Live();
-            cellRenderer.enabled = true;
-            cellRenderer.material.color = aliveColor;
+
+            if (!isHovered)
+            {
+                cellRenderer.material.color = aliveColor;
+                cellRenderer.enabled = true;
+            }
         }
 
-        public bool IsAlive => cell.IsAlive;
+        void OnGazeEnter() => OnHover();
+        void OnSelect() => ChangeState();
+        void OnGazeLeave() => OnReset();
 
-        void OnGazeEnter()
+        private void OnMouseEnter() => OnHover();
+        private void OnMouseDown() => ChangeState();
+        private void OnMouseExit() => OnReset();
+
+        private void OnHover()
         {
+            isHovered = true;
             cellRenderer.enabled = true;
             cellRenderer.material.color = hoverColor;
         }
 
-        void OnGazeLeave()
+        private void OnReset()
         {
+            isHovered = false;
+
             if (cell.IsAlive)
             {
                 cellRenderer.material.color = aliveColor;
@@ -66,29 +93,6 @@ namespace Life.UI
             {
                 cellRenderer.enabled = false;
             }
-        }
-
-        private void OnMouseEnter()
-        {
-            cellRenderer.enabled = true;
-            cellRenderer.material.color = hoverColor;
-        }
-
-        private void OnMouseExit()
-        {
-            if (cell.IsAlive)
-            {
-                cellRenderer.material.color = aliveColor;
-            }
-            else
-            {
-                cellRenderer.enabled = false;
-            }
-        }
-
-        void OnSelect()
-        {
-            ChangeState();
         }
     }
 }

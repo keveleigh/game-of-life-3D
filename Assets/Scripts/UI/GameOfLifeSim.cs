@@ -22,9 +22,9 @@ namespace Life.UI
         [SerializeField]
         private GameObject cell;
 
+        private Simulation simulation = null;
         private bool isRunning = false;
         private Cell[,] cells;
-        private int[,] neighbors;
         private long lastUpdateTime = DateTime.Now.Ticks;
 
         private const long UpdateInterval = 5000000;
@@ -37,7 +37,7 @@ namespace Life.UI
             float cellWidth = cell.transform.localScale.y;
 
             cells = new Cell[length, width];
-            neighbors = new int[length, width];
+            Logic.Cell[,] logicCells = new Logic.Cell[length, width];
 
             for (int i = 0; i < length; i++)
             {
@@ -92,119 +92,34 @@ namespace Life.UI
                     Cell cellComponent = cube.AddComponent<Cell>();
                     cellComponent.SetColors(aliveColor, hoverColor);
                     cells[i, j] = cellComponent;
+                    logicCells[i, j] = cellComponent;
                 }
             }
+
+            simulation = new Simulation(length, width, logicCells);
         }
 
         private void Update()
         {
+            if (Keyboard.current[Key.S].wasPressedThisFrame)
+            {
+                isRunning = !isRunning;
+            }
+
             if (isRunning)
             {
                 long currentTime = DateTime.Now.Ticks;
                 if ((currentTime - lastUpdateTime) > UpdateInterval)
                 {
                     lastUpdateTime = currentTime;
-
-                    for (int i = 0; i < length; i++)
-                    {
-                        for (int j = 0; j < width; j++)
-                        {
-                            neighbors[i, j] = GetNumNeighbors(i, j);
-                        }
-                    }
-
-                    for (int i = 0; i < length; i++)
-                    {
-                        for (int j = 0; j < width; j++)
-                        {
-                            int neighborCount = neighbors[i, j];
-                            Cell cell = cells[i, j];
-                            if (neighborCount < 2 || neighborCount > 3)
-                            {
-                                cell.Die();
-                            }
-                            else if ((neighborCount == 2 && cell.IsAlive) || neighborCount == 3)
-                            {
-                                cell.Live();
-                            }
-                        }
-                    }
+                    simulation.Update();
                 }
-            }
-            else if (Mouse.current.leftButton.wasPressedThisFrame
-                && Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit)
-                && hit.transform.gameObject.TryGetComponent(out Cell cell))
-            {
-                cell.ChangeState();
-            }
-
-            if (Keyboard.current[Key.S].wasPressedThisFrame)
-            {
-                isRunning = !isRunning;
             }
         }
 
         public void SetRunning(bool toStart)
         {
             isRunning = toStart;
-        }
-
-        private int GetNumNeighbors(int i, int j)
-        {
-            int neighbors = 0;
-
-            bool iMaxEdgeValid = i + 1 < length;
-            bool jMaxEdgeValid = j + 1 < width;
-            bool iMinEdgeValid = i - 1 >= 0;
-            bool jMinEdgeValid = j - 1 >= 0;
-
-            if (iMaxEdgeValid)
-            {
-                if (cells[i + 1, j].IsAlive)
-                {
-                    neighbors++;
-                }
-
-                if (jMaxEdgeValid && cells[i + 1, j + 1].IsAlive)
-                {
-                    neighbors++;
-                }
-
-                if (jMinEdgeValid && cells[i + 1, j - 1].IsAlive)
-                {
-                    neighbors++;
-                }
-            }
-
-            if (iMinEdgeValid)
-            {
-                if (cells[i - 1, j].IsAlive)
-                {
-                    neighbors++;
-                }
-
-                if (jMaxEdgeValid && cells[i - 1, j + 1].IsAlive)
-                {
-                    neighbors++;
-                }
-
-                if (jMinEdgeValid && cells[i - 1, j - 1].IsAlive)
-                {
-                    neighbors++;
-                }
-            }
-
-            if (jMaxEdgeValid && cells[i, j + 1].IsAlive)
-            {
-                neighbors++;
-            }
-
-            if (jMinEdgeValid && cells[i, j - 1].IsAlive)
-            {
-                neighbors++;
-            }
-
-            return neighbors;
         }
     }
 }
