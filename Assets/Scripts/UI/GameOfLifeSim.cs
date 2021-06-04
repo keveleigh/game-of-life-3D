@@ -1,6 +1,7 @@
 using Life.Logic;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Life.UI
 {
@@ -107,15 +108,14 @@ namespace Life.UI
                     }
                 }
             }
-            else if (Input.GetMouseButtonDown(0))
+            else if (Mouse.current.leftButton.wasPressedThisFrame
+                && Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit)
+                && hit.transform.gameObject.TryGetComponent(out Cell cell))
             {
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
-                {
-                    hit.transform.gameObject.GetComponent<Cell>().ChangeState();
-                }
+                cell.ChangeState();
             }
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Keyboard.current[Key.S].wasPressedThisFrame)
             {
                 isRunning = !isRunning;
             }
