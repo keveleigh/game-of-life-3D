@@ -17,7 +17,7 @@ namespace Life.UI
         private int[,] neighbors;
         private long lastUpdateTime = DateTime.Now.Ticks;
 
-        void Awake()
+        private void Awake()
         {
             cells = new Cell[Length, Width];
             for (int i = 0; i < cells.GetLength(0); i++)
@@ -69,7 +69,7 @@ namespace Life.UI
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (isRunning)
             {
@@ -122,7 +122,7 @@ namespace Life.UI
             isRunning = toStart;
         }
 
-        public void UpdateNeighborsOf(int i, int j)
+        private void UpdateNeighborsOf(int i, int j)
         {
             neighbors[i + 1, j + 1] = GetNumNeighbors(i + 1, j + 1);
             neighbors[i + 1, j] = GetNumNeighbors(i + 1, j);
@@ -134,7 +134,7 @@ namespace Life.UI
             neighbors[i - 1, j - 1] = GetNumNeighbors(i - 1, j - 1);
         }
 
-        public int GetNumNeighbors(int i, int j)
+        private int GetNumNeighbors(int i, int j)
         {
             int neighbors = 0;
             try

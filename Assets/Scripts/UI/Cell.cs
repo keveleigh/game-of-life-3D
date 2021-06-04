@@ -68,13 +68,13 @@ namespace Life.UI
             }
         }
 
-        void OnMouseEnter()
+        private void OnMouseEnter()
         {
             cellRenderer.enabled = true;
             cellRenderer.material.color = hoverColor;
         }
 
-        void OnMouseExit()
+        private void OnMouseExit()
         {
             if (cell.IsAlive)
             {
