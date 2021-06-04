@@ -137,86 +137,58 @@ namespace Life.UI
         private int GetNumNeighbors(int i, int j)
         {
             int neighbors = 0;
-            try
-            {
-                if (cells[i + 1, j + 1].IsAlive)
-                {
-                    neighbors++;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
+
+            bool iMaxEdgeValid = i + 1 < Length;
+            bool jMaxEdgeValid = j + 1 < Width;
+            bool iMinEdgeValid = i - 1 >= 0;
+            bool jMinEdgeValid = j - 1 >= 0;
+
+            if (iMaxEdgeValid)
             {
                 if (cells[i + 1, j].IsAlive)
                 {
                     neighbors++;
                 }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
-            {
-                if (cells[i + 1, j - 1].IsAlive)
+
+                if (jMaxEdgeValid && cells[i + 1, j + 1].IsAlive)
+                {
+                    neighbors++;
+                }
+
+                if (jMinEdgeValid && cells[i + 1, j - 1].IsAlive)
                 {
                     neighbors++;
                 }
             }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
-            {
-                if (cells[i, j + 1].IsAlive)
-                {
-                    neighbors++;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
-            {
-                if (cells[i, j - 1].IsAlive)
-                {
-                    neighbors++;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
-            {
-                if (cells[i - 1, j + 1].IsAlive)
-                {
-                    neighbors++;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
+
+            if (iMinEdgeValid)
             {
                 if (cells[i - 1, j].IsAlive)
                 {
                     neighbors++;
                 }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-            try
-            {
-                if (cells[i - 1, j - 1].IsAlive)
+
+                if (jMaxEdgeValid && cells[i - 1, j + 1].IsAlive)
+                {
+                    neighbors++;
+                }
+
+                if (jMinEdgeValid && cells[i - 1, j - 1].IsAlive)
                 {
                     neighbors++;
                 }
             }
-            catch (IndexOutOfRangeException)
+
+            if (jMaxEdgeValid && cells[i, j + 1].IsAlive)
             {
+                neighbors++;
             }
+
+            if (jMinEdgeValid && cells[i, j - 1].IsAlive)
+            {
+                neighbors++;
+            }
+
             return neighbors;
         }
 
