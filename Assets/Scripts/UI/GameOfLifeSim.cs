@@ -101,7 +101,7 @@ namespace Life.UI
 
         private void Update()
         {
-            if (Keyboard.current[Key.S].wasPressedThisFrame)
+            if (Keyboard.current[Key.Z].wasPressedThisFrame)
             {
                 isRunning = !isRunning;
             }
