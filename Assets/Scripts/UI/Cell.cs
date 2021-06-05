@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using Microsoft.MixedReality.Toolkit.Input;
+using UnityEngine;
 
 namespace Life.UI
 {
-    public class Cell : MonoBehaviour
+    public class Cell : BaseFocusHandler, IMixedRealityPointerHandler
     {
+        [SerializeField]
+        private MixedRealityInputAction selectAction = MixedRealityInputAction.None;
+
         private Renderer cellRenderer;
 
         private bool isHovered = false;
@@ -14,7 +18,7 @@ namespace Life.UI
 
         public static implicit operator Logic.Cell(Cell c) => c.cell;
 
-        private void Awake()
+        private void Start()
         {
             cellRenderer = GetComponent<Renderer>();
             Die();
@@ -66,13 +70,13 @@ namespace Life.UI
             }
         }
 
-        void OnGazeEnter() => OnHover();
-        void OnSelect() => ChangeState();
-        void OnGazeLeave() => OnReset();
+        public override void OnFocusEnter(FocusEventData eventData) => OnHover();
+        //void OnSelect() => ChangeState();
+        public override void OnFocusExit(FocusEventData eventData) => OnReset();
 
-        private void OnMouseEnter() => OnHover();
-        private void OnMouseDown() => ChangeState();
-        private void OnMouseExit() => OnReset();
+        //private void OnMouseEnter() => OnHover();
+        //private void OnMouseDown() => ChangeState();
+        //private void OnMouseExit() => OnReset();
 
         private void OnHover()
         {
@@ -92,6 +96,20 @@ namespace Life.UI
             else
             {
                 cellRenderer.enabled = false;
+            }
+        }
+
+        void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData) { }
+
+        void IMixedRealityPointerHandler.OnPointerDragged(MixedRealityPointerEventData eventData) { }
+
+        void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData) { }
+
+        void IMixedRealityPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData)
+        {
+            if (eventData.MixedRealityInputAction == selectAction)
+            {
+                ChangeState();
             }
         }
     }
