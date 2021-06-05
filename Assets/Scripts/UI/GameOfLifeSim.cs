@@ -1,4 +1,5 @@
 using Life.Logic;
+using Microsoft.MixedReality.Toolkit;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,32 +48,56 @@ namespace Life.UI
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
+                        if (borderCube.TryGetComponent(out Cell edgeCell))
+                        {
+                            Destroy(edgeCell);
+                        }
 
                         if (j == 0)
                         {
                             GameObject borderCornerCube = Instantiate(cell, transform);
                             borderCornerCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
+                            if (borderCornerCube.TryGetComponent(out Cell cornerCell))
+                            {
+                                Destroy(cornerCell);
+                            }
                         }
                         else if (j == width - 1)
                         {
                             GameObject borderCornerCube = Instantiate(cell, transform);
                             borderCornerCube.transform.localPosition = new Vector3((i - 1 - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
+                            if (borderCornerCube.TryGetComponent(out Cell cornerCell))
+                            {
+                                Destroy(cornerCell);
+                            }
                         }
                     }
                     else if (i == length - 1)
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
+                        if (borderCube.TryGetComponent(out Cell edgeCell))
+                        {
+                            Destroy(edgeCell);
+                        }
 
                         if (j == 0)
                         {
                             GameObject borderCornerCube = Instantiate(cell, transform);
                             borderCornerCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
+                            if (borderCornerCube.TryGetComponent(out Cell cornerCell))
+                            {
+                                Destroy(cornerCell);
+                            }
                         }
                         else if (j == width - 1)
                         {
                             GameObject borderCornerCube = Instantiate(cell, transform);
                             borderCornerCube.transform.localPosition = new Vector3((i + 1 - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
+                            if (borderCornerCube.TryGetComponent(out Cell cornerCell))
+                            {
+                                Destroy(cornerCell);
+                            }
                         }
                     }
 
@@ -80,16 +105,24 @@ namespace Life.UI
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j - 1 - halfWidth) * cellWidth, 0);
+                        if (borderCube.TryGetComponent(out Cell edgeCell))
+                        {
+                            Destroy(edgeCell);
+                        }
                     }
                     else if (j == width - 1)
                     {
                         GameObject borderCube = Instantiate(cell, transform);
                         borderCube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j + 1 - halfWidth) * cellWidth, 0);
+                        if (borderCube.TryGetComponent(out Cell edgeCell))
+                        {
+                            Destroy(edgeCell);
+                        }
                     }
 
                     GameObject cube = Instantiate(cell, transform);
                     cube.transform.localPosition = new Vector3((i - halfLength) * cellLength, (j - halfWidth) * cellWidth, 0);
-                    Cell cellComponent = cube.AddComponent<Cell>();
+                    Cell cellComponent = cube.EnsureComponent<Cell>();
                     cellComponent.SetColors(aliveColor, hoverColor);
                     cells[i, j] = cellComponent;
                     logicCells[i, j] = cellComponent;
