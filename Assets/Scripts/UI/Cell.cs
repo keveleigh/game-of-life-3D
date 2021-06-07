@@ -99,18 +99,18 @@ namespace Life.UI
             }
         }
 
-        void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData) { }
-
-        void IMixedRealityPointerHandler.OnPointerDragged(MixedRealityPointerEventData eventData) { }
-
-        void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData) { }
-
-        void IMixedRealityPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData)
+        void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
         {
             if (eventData.MixedRealityInputAction == selectAction)
             {
                 ChangeState();
             }
         }
+
+        void IMixedRealityPointerHandler.OnPointerDragged(MixedRealityPointerEventData eventData) { }
+
+        void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData) { }
+
+        void IMixedRealityPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
     }
 }
